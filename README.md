@@ -10,7 +10,8 @@ Solutions and notes for LeetCode 75 and Top Interview 150 in idiomatic Swift, fo
 | :--- | :--- | :--- | :--- | :--- |
 | 01 | **Array / String** | [`01_Array_String`](./LeetCode75/01_Array_String) | **9 / 9** | ✅ Complete |
 | 02 | **Two Pointers** | [`02_Two_Pointers`](./LeetCode75/02_Two_Pointers) | **4 / 4** | ✅ Complete |
-| 03 | **Sliding Window** | [`03_Sliding_Window`](./LeetCode75/03_Sliding_Window) | **1 / 4** | 🔄 In Progress |
+| 03 | **Sliding Window** | [`03_Sliding_Window`](./LeetCode75/03_Sliding_Window) | **4 / 4** | ✅ Complete |
+| 04 | **Prefix Sum** | [`04_Prefix_Sum`](./LeetCode75/04_Prefix_Sum) | **0 / 2** | ⏳ Next Up |
 
 ---
 
@@ -38,6 +39,15 @@ Solutions and notes for LeetCode 75 and Top Interview 150 in idiomatic Swift, fo
 | 11 | [392. Is Subsequence](./LeetCode75/02_Two_Pointers/392_Is_Subsequence.swift) | Easy | $O(T)$ | $O(S + T)$ | Parallel pointers across `s` and `t` (plus Dictionary + Binary Search follow-up for $10^9$ queries). |
 | 12 | [11. Container With Most Water](./LeetCode75/02_Two_Pointers/11_Container_with_most_water.swift) | Medium | $O(N)$ | $O(1)$ | Opposite-ends `left` and `right` pointers; greedily move the shorter (bottleneck) wall inward. |
 | 13 | [1679. Max Number of K-Sum Pairs](./LeetCode75/02_Two_Pointers/1679_Max_Number_of_K-Sum_Pairs.swift) | Medium | $O(N \log N)$ | $O(N)$ | Sort array then converge `left` and `right` pointers based on `sum == k`, `sum < k`, or `sum > k`. |
+
+### 03. Sliding Window (4 / 4)
+
+| # | Problem | Difficulty | Time | Space | Core Pattern & Takeaway |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 14 | [643. Maximum Average Subarray I](./LeetCode75/03_Sliding_Window/643_Maximum_Average_SubarrayI.swift) | Easy | $O(N)$ | $O(1)$ | Fixed window of size `k`; slide in $O(1)$ via `currentSum += nums[i] - nums[i - k]`. |
+| 15 | [1456. Maximum Number of Vowels in a Substring of Given Length](./LeetCode75/03_Sliding_Window/1456_Maximum_Number_of_Vowels_in_a_Substring_of_Given_Length.swift) | Medium | $O(N)$ | $O(N)$ | Fixed window of size `k` over `Array(s)` with early exit when `maxVowels == k`. |
+| 16 | [1004. Max Consecutive Ones III](./LeetCode75/03_Sliding_Window/1004_Max_Consecutive_Ones_III.swift) | Medium | $O(N)$ | $O(1)$ | Variable window (`left...right`) maintaining `zeroCount <= k`; branchless `1 - num` trick. |
+| 17 | [1493. Longest Subarray of 1's After Deleting One Element](./LeetCode75/03_Sliding_Window/1493_Longest_Subarray_of_1s_After_Deleting_One_Element.swift) | Medium | $O(N)$ | $O(1)$ | Early exit via `count(where:)` for `<= 1` zero; non-shrinking window returning `nums.count - left - 1`. |
 
 ---
 
@@ -72,10 +82,21 @@ Every Two-Pointer problem falls into one of **three structural templates**:
    * `left = 0` and `right = count - 1`, looping `while left < right`.
    * **Greedy Shrink (#11):** Move the pointer that bottlenecks the current answer (`height[left] < height[right] ? (left += 1) : (right -= 1)`).
    * **Sorted Two-Sum (#1679):** After `.sorted()`, if `sum < k` increment `left += 1` (need larger value); if `sum > k` decrement `right -= 1` (need smaller value).
+   
+### 3. Sliding Window Decision Guide
+1. **Fixed-Size Window (#643, #1456):**
+   * **Trigger:** Problem specifies an exact subarray/substring length `k`.
+   * **Template:** Compute initial window `0..<k` once, then loop `for i in k..<count`, adding entering element `[i]` and subtracting leaving element `[i - k]`.
+2. **Variable-Size Window (#1004, #1493):**
+   * **Trigger:** Problem asks for the *longest* or *shortest* subarray satisfying a constraint (e.g., at most `k` zeroes).
+   * **Standard Template:** Expand `right` in `nums.indices`; use `while` to advance `left += 1` whenever the constraint is violated; window length is `right - left + 1` (or `right - left` if deleting 1 element).
+   * **Non-Shrinking Monotonic Optimization:** Replace `while` with `if` when only the maximum window length matters; final answer is `nums.count - left` (or `nums.count - left - 1`).
+   * **Branchless Binary Trick:** For binary arrays (`0` and `1`), `1 - num` equals `1` when `num == 0` and `0` when `num == 1`.
 
-### 3. Essential Swift Standard Library Toolkit (Used So Far)
+### 4. Essential Swift Standard Library Toolkit (Used So Far)
 * `nums.swapAt(i, j)` — Swaps two array elements in-place in $O(1)$ time without a temporary variable.
 * `Set("aeiouAEIOU")` — Provides $O(1)$ `.contains(char)` lookups instead of $O(N)$ array scans.
 * `for (index, char) in t.enumerated()` — Iterates over both the integer index and element simultaneously.
 * `dict[key, default: []].append(val)` / `dict[key, default: 0] += 1` — Safely initializes missing dictionary keys in a single line.
 * `nums[0..<k].reduce(0, +)` — Sums a contiguous `ArraySlice` declaratively.
+* `nums.count(where: { $0 == 1 })` — Counts elements matching a predicate in a single declarative pass.
