@@ -1,16 +1,16 @@
 # leetcode-swift
+
 Solutions and notes for LeetCode 75 and Top Interview 150 in idiomatic Swift, focusing on clean code, best practices, and complexity analysis.
-# LeetCode 75 — Swift Solutions & Pattern Guide
 
-A structured repository of optimal **Swift** solutions for the [LeetCode 75 Study Plan](https://leetcode.com/studyplan/leetcode-75/), organized by algorithmic pattern with time/space complexity analysis and alternative approaches documented in code.
+---
 
-## 📊 Milestone Progress
+## 📊 LeetCode 75 — Milestone Progress
 
 | # | Category | Directory | Progress | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| 01 | **Array / String** | [`01_Array_String`](./01_Array_String) | **9 / 9** | ✅ Complete |
-| 02 | **Two Pointers** | [`02_Two_Pointers`](./02_Two_Pointers) | **4 / 4** | ✅ Complete |
-| 03 | **Sliding Window** | [`03_Sliding_Window`](./03_Sliding_Window) | **1 / 4** | 🔄 In Progress |
+| 01 | **Array / String** | [`01_Array_String`](./LeetCode75/01_Array_String) | **9 / 9** | ✅ Complete |
+| 02 | **Two Pointers** | [`02_Two_Pointers`](./LeetCode75/02_Two_Pointers) | **4 / 4** | ✅ Complete |
+| 03 | **Sliding Window** | [`03_Sliding_Window`](./LeetCode75/03_Sliding_Window) | **1 / 4** | 🔄 In Progress |
 
 ---
 
@@ -20,24 +20,24 @@ A structured repository of optimal **Swift** solutions for the [LeetCode 75 Stud
 
 | # | Problem | Difficulty | Time | Space | Core Pattern & Takeaway |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | [1768. Merge Strings Alternately](./01_Array_String/1768_MergeStringsAlternately.swift) | Easy | $O(N + M)$ | $O(N + M)$ | Single pointer up to `max(count1, count2)` appending valid characters from each string. |
-| 2 | [1071. Greatest Common Divisor of Strings](./01_Array_String/1071_GreatestCommonDivisorOfStrings.swift) | Easy | $O(N + M)$ | $O(N + M)$ | Check `str1 + str2 == str2 + str1`; if true, prefix length is `gcd(str1.count, str2.count)`. |
-| 3 | [1431. Kids With the Greatest Number of Candies](./01_Array_String/1431_KidsWithTheGreatestNumberOfCandies.swift) | Easy | $O(N)$ | $O(N)$ | Find global `max()` once upfront, then compare `candy + extraCandies >= maxCandies`. |
-| 4 | [605. Can Place Flowers](./01_Array_String/605_CanPlaceFlowers.swift) | Easy | $O(N)$ | $O(1)$ | Greedy scan checking `(i == 0 \|\| bed[i-1] == 0)` and `(i == count-1 \|\| bed[i+1] == 0)`. |
-| 5 | [345. Reverse Vowels of a String](./01_Array_String/345_ReverseVowelsOfAString.swift) | Easy | $O(N)$ | $O(N)$ | Opposite-ends pointers (`left`, `right`) + `Set<Character>` for $O(1)$ vowel lookup. |
-| 6 | [151. Reverse Words in a String](./01_Array_String/151_ReverseWordsInAString.swift) | Medium | $O(N)$ | $O(N)$ | Split/reverse words or in-place whole-array reverse followed by per-word reverse. |
-| 7 | [238. Product of Array Except Self](./01_Array_String/238_ProductOfArrayExceptSelf.swift) | Medium | $O(N)$ | $O(1)$ | Two-pass prefix product (left-to-right) and running suffix multiplier (right-to-left) without division. |
-| 8 | [334. Increasing Triplet Subsequence](./01_Array_String/334_IncreasingTripletSubsequence.swift) | Medium | $O(N)$ | $O(1)$ | Greedy threshold tracking with `first = Int.max` and `second = Int.max` via `if / else if / else`. |
-| 9 | [443. String Compression](./01_Array_String/443_StringCompression.swift) | Medium | $O(N)$ | $O(1)$ | Same-direction `read` and `write` pointers to count consecutive character streaks in-place. |
+| 1 | [1768. Merge Strings Alternately](./LeetCode75/01_Array_String/1768_MergeStringsAlternately.swift) | Easy | $O(N + M)$ | $O(N + M)$ | Single index up to `max(count1, count2)` appending valid characters from each string. |
+| 2 | [1071. Greatest Common Divisor of Strings](./LeetCode75/01_Array_String/1071_GCDOfStrings.swift) | Easy | $O(N + M)$ | $O(N + M)$ | Check `str1 + str2 == str2 + str1`; if true, prefix length is `gcd(str1.count, str2.count)`. |
+| 3 | [1431. Kids With the Greatest Number of Candies](./LeetCode75/01_Array_String/1431_KidsWithGreatestCandies.swift) | Easy | $O(N)$ | $O(N)$ | Find global `max()` once upfront, then compare `candy + extraCandies >= maxCandies`. |
+| 4 | [605. Can Place Flowers](./LeetCode75/01_Array_String/605_CanPlaceFlowers.swift) | Easy | $O(N)$ | $O(1)$ | Greedy scan checking `(i == 0 \|\| bed[i-1] == 0)` and `(i == count-1 \|\| bed[i+1] == 0)`. |
+| 5 | [345. Reverse Vowels of a String](./LeetCode75/01_Array_String/345_ReverseVowelsOfAString.swift) | Easy | $O(N)$ | $O(N)$ | Opposite-ends pointers (`left`, `right`) + `Set<Character>` for $O(1)$ vowel lookup. |
+| 6 | [151. Reverse Words in a String](./LeetCode75/01_Array_String/151_ReverseWordsInAString.swift) | Medium | $O(N)$ | $O(N)$ | Split/reverse words or in-place whole-array reverse followed by per-word reverse. |
+| 7 | [238. Product of Array Except Self](./LeetCode75/01_Array_String/238_ProductOfArrayExceptSelf.swift) | Medium | $O(N)$ | $O(1)$ | Two-pass prefix product (left-to-right) and running suffix multiplier (right-to-left) without division. |
+| 8 | [334. Increasing Triplet Subsequence](./LeetCode75/01_Array_String/334_IncreasingTripletSubsequence.swift) | Medium | $O(N)$ | $O(1)$ | Greedy threshold tracking with `first = Int.max` and `second = Int.max` via `if / else if / else`. |
+| 9 | [443. String Compression](./LeetCode75/01_Array_String/443_StringCompression.swift) | Medium | $O(N)$ | $O(1)$ | Same-direction `read` and `write` pointers to count consecutive character streaks in-place. |
 
 ### 02. Two Pointers (4 / 4)
 
 | # | Problem | Difficulty | Time | Space | Core Pattern & Takeaway |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 10 | [283. Move Zeroes](./02_Two_Pointers/283_MoveZeroes.swift) | Easy | $O(N)$ | $O(1)$ | Same-direction `read` and `write` pointers; swap non-zero elements to `write` index via `swapAt`. |
-| 11 | [392. Is Subsequence](./02_Two_Pointers/392_IsSubsequence.swift) | Easy | $O(T)$ | $O(S + T)$ | Parallel pointers across `s` and `t` (plus Dictionary + Binary Search follow-up for $10^9$ queries). |
-| 12 | [11. Container With Most Water](./02_Two_Pointers/11_ContainerWithMostWater.swift) | Medium | $O(N)$ | $O(1)$ | Opposite-ends `left` and `right` pointers; greedily move the shorter (bottleneck) wall inward. |
-| 13 | [1679. Max Number of K-Sum Pairs](./02_Two_Pointers/1679_MaxNumberOfKSumPairs.swift) | Medium | $O(N \log N)$ | $O(N)$ | Sort array then converge `left` and `right` pointers based on `sum == k`, `sum < k`, or `sum > k`. |
+| 10 | [283. Move Zeroes](./LeetCode75/02_Two_Pointers/283_Move_Zeroes.swift) | Easy | $O(N)$ | $O(1)$ | Same-direction `read` and `write` pointers; swap non-zero elements to `write` index via `swapAt`. |
+| 11 | [392. Is Subsequence](./LeetCode75/02_Two_Pointers/392_Is_Subsequence.swift) | Easy | $O(T)$ | $O(S + T)$ | Parallel pointers across `s` and `t` (plus Dictionary + Binary Search follow-up for $10^9$ queries). |
+| 12 | [11. Container With Most Water](./LeetCode75/02_Two_Pointers/11_Container_with_most_water.swift) | Medium | $O(N)$ | $O(1)$ | Opposite-ends `left` and `right` pointers; greedily move the shorter (bottleneck) wall inward. |
+| 13 | [1679. Max Number of K-Sum Pairs](./LeetCode75/02_Two_Pointers/1679_Max_Number_of_K-Sum_Pairs.swift) | Medium | $O(N \log N)$ | $O(N)$ | Sort array then converge `left` and `right` pointers based on `sum == k`, `sum < k`, or `sum > k`. |
 
 ---
 
