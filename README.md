@@ -11,8 +11,8 @@ Solutions and notes for LeetCode 75 and Top Interview 150 in idiomatic Swift, fo
 | 01 | **Array / String** | [`01_Array_String`](./LeetCode75/01_Array_String) | **9 / 9** | ✅ Complete |
 | 02 | **Two Pointers** | [`02_Two_Pointers`](./LeetCode75/02_Two_Pointers) | **4 / 4** | ✅ Complete |
 | 03 | **Sliding Window** | [`03_Sliding_Window`](./LeetCode75/03_Sliding_Window) | **4 / 4** | ✅ Complete |
-| 04 | **Prefix Sum** | [`04_Prefix_Sum`](./LeetCode75/04_Prefix_Sum) | **0 / 2** | ⏳ Next Up |
-
+| 04 | **Prefix Sum** | [`04_Prefix_Sum`](./LeetCode75/04_Prefix_Sum) | **2 / 2** | ✅ Complete |
+| 05 | **Hash Map / Set** | [`05_Hash_Map_Set`](./LeetCode75/05_Hash_Map_Set) | **0 / 4** | ⏳ Next Up |
 ---
 
 ## 🗂️ Problem Log by Category
@@ -48,6 +48,13 @@ Solutions and notes for LeetCode 75 and Top Interview 150 in idiomatic Swift, fo
 | 15 | [1456. Maximum Number of Vowels in a Substring of Given Length](./LeetCode75/03_Sliding_Window/1456_Maximum_Number_of_Vowels_in_a_Substring_of_Given_Length.swift) | Medium | $O(N)$ | $O(N)$ | Fixed window of size `k` over `Array(s)` with early exit when `maxVowels == k`. |
 | 16 | [1004. Max Consecutive Ones III](./LeetCode75/03_Sliding_Window/1004_Max_Consecutive_Ones_III.swift) | Medium | $O(N)$ | $O(1)$ | Variable window (`left...right`) maintaining `zeroCount <= k`; branchless `1 - num` trick. |
 | 17 | [1493. Longest Subarray of 1's After Deleting One Element](./LeetCode75/03_Sliding_Window/1493_Longest_Subarray_of_1s_After_Deleting_One_Element.swift) | Medium | $O(N)$ | $O(1)$ | Early exit via `count(where:)` for `<= 1` zero; non-shrinking window returning `nums.count - left - 1`. |
+
+### 04 Prefix Sum (2 / 2)
+
+| # | Solution File | Difficulty | Time | Space | Core Pattern & Takeaway |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 18 | [1732_Find_the_Highest_Altitude.swift](./LeetCode75/04_Prefix_Sum/1732_Find_the_Highest_Altitude.swift) | Easy | $O(N)$ | $O(1)$ | Maintain a running prefix sum scalar variable and track the maximum value observed. |
+| 19 | [724_Find_Pivot_Index.swift](./LeetCode75/04_Prefix_Sum/724_Find_Pivot_Index.swift) | Easy | $O(N)$ | $O(1)$ | Compute `totalSum` upfront; iterate with a running `leftSum` checking `leftSum == totalSum - leftSum - num`. |
 
 ---
 
@@ -92,6 +99,10 @@ Every Two-Pointer problem falls into one of **three structural templates**:
    * **Standard Template:** Expand `right` in `nums.indices`; use `while` to advance `left += 1` whenever the constraint is violated; window length is `right - left + 1` (or `right - left` if deleting 1 element).
    * **Non-Shrinking Monotonic Optimization:** Replace `while` with `if` when only the maximum window length matters; final answer is `nums.count - left` (or `nums.count - left - 1`).
    * **Branchless Binary Trick:** For binary arrays (`0` and `1`), `1 - num` equals `1` when `num == 0` and `0` when `num == 1`.
+   
+### 4. Prefix Sum Core Pattern
+* **Concept:** A running total of array elements used to answer range sum queries or balance points in $O(1)$ time per element after a single preprocessing pass.
+* **Pivot Index Trick (#724):** Instead of allocating explicit left and right arrays, compute `totalSum` via `.reduce(0, +)` and track `leftSum` dynamically. The right sum at any index `i` is derived instantly via `totalSum - leftSum - nums[i]`.
 
 ### 4. Essential Swift Standard Library Toolkit (Used So Far)
 * `nums.swapAt(i, j)` — Swaps two array elements in-place in $O(1)$ time without a temporary variable.
@@ -100,3 +111,4 @@ Every Two-Pointer problem falls into one of **three structural templates**:
 * `dict[key, default: []].append(val)` / `dict[key, default: 0] += 1` — Safely initializes missing dictionary keys in a single line.
 * `nums[0..<k].reduce(0, +)` — Sums a contiguous `ArraySlice` declaratively.
 * `nums.count(where: { $0 == 1 })` — Counts elements matching a predicate in a single declarative pass.
+* `collection.reduce(0, +)` — A declarative standard library method used to accumulate values (like computing `totalSum` in $O(N)$ time for [#724 Find Pivot Index](./LeetCode75/04_Prefix_Sum/724_Find_Pivot_Index.swift)) without writing explicit boilerplate `for` loops.
